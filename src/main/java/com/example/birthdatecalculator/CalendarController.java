@@ -4,10 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.*;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -16,6 +21,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class CalendarController {
+    @FXML
+    private Pane printPane;
+
+    @FXML
+    private ImageView background;
+
     @FXML
     private Label monthLabel;
 
@@ -114,6 +125,23 @@ public class CalendarController {
                 r61, r62, r63, r64, r65, r66, r67);
 
         clearCalendar();
+
+//        Image image = new Image(Main.class.getResource("/com/example/birthdatecalculator/img2.jpg").toString());
+//        background.setImage(image);
+    }
+
+    @FXML
+    private void print() {
+        Printer printer = Printer.getDefaultPrinter();
+
+        PageLayout pageLayout = printer.createPageLayout(Paper.A5, PageOrientation.LANDSCAPE,
+                Printer.MarginType.HARDWARE_MINIMUM);
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+        job.getJobSettings().setPageLayout(pageLayout);
+        if (job != null) {
+            job.printPage(printPane);
+            job.endJob();
+        }
     }
 
     @FXML
@@ -200,9 +228,9 @@ public class CalendarController {
 
     public void changeLabelColor(int value, Label label) {
         switch (value) {
-            case 3 : label.setTextFill(Color.LIGHTGREEN); break;
+            case 3 : label.setTextFill(Color.GREEN); break;
             case 8 : label.setTextFill(Color.BLUE); break;
-            case 6 : label.setTextFill(Color.VIOLET); break;
+            case 6 : label.setTextFill(Color.DARKMAGENTA); break;
             default: label.setTextFill(Color.BLACK);
         }
     }

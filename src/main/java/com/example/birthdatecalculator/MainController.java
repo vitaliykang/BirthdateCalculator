@@ -53,10 +53,11 @@ public class MainController {
         Parent parent = fxmlLoader.load();
         CalendarController calendarController = fxmlLoader.getController();
 
-        Scene scene = new Scene(parent, 600, 600);
+        Scene calendarScene = new Scene(parent, 600, 500);
         Stage stage = new Stage();
+        stage.setResizable(false);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
+        stage.setScene(calendarScene);
         stage.showAndWait();
     }
 
@@ -122,10 +123,6 @@ public class MainController {
 
     public LocalDate getBirthDate() {
         return datePicker.getValue();
-    }
-
-    public DatePicker getDatePicker() {
-        return datePicker;
     }
 
     private String calculateCode(LocalDate date) {
